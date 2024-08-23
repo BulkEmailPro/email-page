@@ -3,23 +3,215 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Dummy Page</title>
+    <title>Welcome to Email App !!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 50px;
-        }
-        h1 {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
             color: #333;
+            flex-direction: column;
+            padding: 20px;
         }
-        p {
+
+        .container {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 90%;
+            max-width: 800px;
+        }
+
+        h1 {
+            font-weight: 700;
+            color: #444;
+            margin-bottom: 10px;
+        }
+
+        p.description {
+            margin-bottom: 30px;
+            font-size: 18px;
             color: #666;
         }
+
+        .switch-container {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .switch-label {
+            margin-right: 10px;
+            font-size: 16px;
+            color: #444;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+            .switch input {
+                opacity: 0;
+                width: 0;
+                height: 0;
+            }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+            .slider:before {
+                position: absolute;
+                content: "";
+                height: 26px;
+                width: 26px;
+                left: 4px;
+                bottom: 4px;
+                background-color: white;
+                transition: .4s;
+                border-radius: 50%;
+            }
+
+        input:checked + .slider {
+            background-color: #66bb6a;
+        }
+
+            input:checked + .slider:before {
+                transform: translateX(26px);
+            }
+
+        .textarea-container {
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        textarea {
+            width: 100%;
+            height: 250px;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            margin-bottom: 20px;
+            resize: vertical;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        .preview-box {
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            text-align: left;
+            margin-bottom: 20px;
+            font-size: 16px;
+            white-space: pre-wrap;
+            color: #333;
+        }
+
+        .button-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .send-button {
+            display: inline-block;
+            padding: 12px 25px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #81c784, #66bb6a);
+            color: #ffffff;
+            font-weight: bold;
+            text-decoration: none;
+            transition: background 0.3s ease;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+            .send-button:hover {
+                background: linear-gradient(135deg, #66bb6a, #81c784);
+            }
     </style>
 </head>
 <body>
-    <h1>Hello, GitHub Pages! ZAP</h1>
-    <p>This is a dummy HTML page hosted on GitHub Pages.</p>
+    <div class="container">
+        <h1>Welcome to Email App !!</h1>
+        <p class="description">Dear User !! Your one click will help us raise our voice in the best interest of Pakistan.</p>
+        <p class="description"><strong>Oppose Imran Khan's potential appointment as Chancellor of Oxford University.</strong></p>
+        <div class="switch-container">
+            <span class="switch-label">Edit Text</span>
+            <label class="switch">
+                <input type="checkbox" id="toggleSwitch">
+                <span class="slider"></span>
+            </label>
+        </div>
+        <div class="textarea-container" id="textareaContainer">
+            <textarea id="emailText">Dear Sir,
+
+I am writing to express serious concerns regarding the candidacy of Mr. Imran Khan for the Chancellor election at Oxford.
+•	Supporting extremism, Mr. Khan proposed allowing the “Taliban to open an office” in Pakistan, sparking widespread criticism.
+•	He referred to the Taliban as “freedom fighters” and celebrated the U.S. withdrawal from Afghanistan as Afghans "breaking the shackles of slavery."
+•	Mr. Khan referred to “Osama bin Laden” as a "shaheed" (martyr), honoring his death instead of condemning his actions.
+•	Mr. Khan blamed clothing of women for incidents of rape, shifting blame away from perpetrators.
+•	Allegations against Mr. Khan include a “sex scandal” and mobilizing an online troll army to harass Hajra Khan who accused him of rape.
+•	Mr. Khan was convicted in the Toshakhana (Govt Treasury) case for the illegal sale of state gifts and has been involved in a legal battle over his refusal to acknowledge his daughter, “Tyrian White”.
+Oxford is urged to consider these serious concerns before electing Mr. Khan as Chancellor.
+
+Regards</textarea>
+        </div>
+        <div class="preview-box" id="previewBox" style="display: none;"></div>
+        <div class="button-container">
+            <a id="sendEmailLink" class="send-button" href="#">Click here to send the email</a>
+        </div>
+    </div>
+
+    <script>
+        const toggleSwitch = document.getElementById('toggleSwitch');
+        const textareaContainer = document.getElementById('textareaContainer');
+        const previewBox = document.getElementById('previewBox');
+        const emailTextArea = document.getElementById('emailText');
+        const sendEmailLink = document.getElementById('sendEmailLink');
+
+        toggleSwitch.addEventListener('change', function () {
+            if (toggleSwitch.checked) {
+                textareaContainer.style.display = 'block';
+                previewBox.style.display = 'none';
+                emailTextArea.disabled = false;
+            } else {
+                textareaContainer.style.display = 'none';
+                previewBox.style.display = 'none';
+                emailTextArea.disabled = true;
+            }
+        });
+
+        emailTextArea.addEventListener('input', function () {
+            const emailBody = encodeURIComponent(emailTextArea.value.replace(/“/g, '"').replace(/”/g, '"'));
+            sendEmailLink.href = `mailto:uta.balbier@history.ox.ac.uk,adam.smith@univ.ox.ac.uk,david.rechter@ames.ox.ac.uk,william.allan@univ.ox.ac.uk,armand.dangour@jesus.ox.ac.uk,Mark.edwards@theology.ox.ac.uk,peter.frankopan@worc.ox.ac.uk,alison.salvesen@orinst.ox.ac.uk,martin.goodman@orinst.ox.ac.uk,constanze.guthenke@classics.ox.ac.uk?subject=Concerns Regarding the Candidacy of Imran Khan for Chancellor Election&body=${emailBody}`;
+            previewBox.textContent = emailTextArea.value;
+        });
+
+        const initialEmailBody = encodeURIComponent(emailTextArea.value.replace(/“/g, '"').replace(/”/g, '"'));
+        sendEmailLink.href = `mailto:uta.balbier@history.ox.ac.uk,adam.smith@univ.ox.ac.uk,david.rechter@ames.ox.ac.uk,william.allan@univ.ox.ac.uk,armand.dangour@jesus.ox.ac.uk,Mark.edwards@theology.ox.ac.uk,peter.frankopan@worc.ox.ac.uk,alison.salvesen@orinst.ox.ac.uk,martin.goodman@orinst.ox.ac.uk,constanze.guthenke@classics.ox.ac.uk?subject=Concerns Regarding the Candidacy of Imran Khan for Chancellor Election&body=${initialEmailBody}`;
+    </script>
 </body>
 </html>
